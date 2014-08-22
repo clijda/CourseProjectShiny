@@ -1,0 +1,17 @@
+{
+    "contents" : "library(XML)\n#http://www.eea.europa.eu/data-and-maps/data/european-union-emissions-trading-scheme-eu-ets-data-from-citl-6/\n#data<-read.table(\"CITL_v16.csv\",header=TRUE)\ndata<-xmlTreeParse(\"env_air_emis.sdmx.xml\",useInternalNodes=TRUE)\nrootNode<-xmlRoot(data)\nxmlName(rootNode)\nxmlSApply(rootNode,xmlValue)\nairpol<-xpathSApply(data,\"//data:Series[@geo='BE']\",xmlGetAttr,\"ai\")\nairsec<-xpathSApply(data,\"//data:Series[@geo='BE']\",xmlGetAttr,\"airsect\")\ngeo<-xpathSApply(data,\"//data:Series\",xmlGetAttr,\"geo\")\ntim_per<-xpathSApply(data,\"//data:Series[@geo='BE']//data:Obs\",xmlGetAttr,\"TIME_PERIOD\")\nobs_val<-xpathSApply(data,\"//data:Series[@geo='BE']//data:Obs\",xmlGetAttr,\"OBS_VALUE\")\n\nlibrary(plyr)\ndf<-ldply(xmlToList(\"env_air_emis.sdmx.xml\"),data.frame)\n",
+    "created" : 1408520490539.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "557684255",
+    "id" : "CCC845F8",
+    "lastKnownWriteTime" : 158560000,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

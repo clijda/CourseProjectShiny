@@ -1,0 +1,16 @@
+{
+    "contents" : "\n# This is the user-interface definition of a Shiny web application.\n# You can find out more about building applications with Shiny here:\n# \n# http://www.rstudio.com/shiny/\n#\n\n# Your Shiny Application\n# \n# Write a shiny application with associated supporting documentation. \n# The documentation should be thought of as whatever a user will need \n# to get started using your application.\n# Deploy the application on Rstudio's shiny server\n# Share the application link by pasting it into the text box below\n# Share your server.R and ui.R code on github\n# The application must include the following:\n# \n# Some form of input (widget: textbox, radio button, checkbox, ...)\n# Some operation on the ui input in sever.R\n# Some reactive output displayed as a result of server calculations\n# You must also include enough documentation so that a novice user could\n# use your application.\n# The documentation should be at the Shiny website itself. \n# Do not post to an external link.\n# The Shiny application in question is entirely up to you. However, \n# if you're having trouble coming up with ideas, you could start from\n# the simple prediction algorithm done in class and build a new algorithm\n# on one of the R datasets packages. Please make the package simple for the\n# end user, so that they don't need a lot of your prerequisite knowledge to\n# evaluate your application. You should emphasize a simple project given the\n# short time frame.  \n\nlibrary(shiny)\ndata(mtcars)\n\nshinyUI(pageWithSidebar(\n  \n  # Application title\n  headerPanel(\"mtcars scatterplots and regression analysis\"),\n  \n  # Sidebar with checkboxes for variables to plot\n  sidebarPanel(\n    checkboxGroupInput(\"Predictors\", \"Select minimum 2 variables: \",names(mtcars),selected=c(\"mpg\",\"cyl\")),\n    h4(helpText(\"How it works...\")),\n    helpText(\"The application builds a pairs plot and performs a short regression analysis based on the selected variables (at least 2) in the checkboxes.\"),\n    helpText(\"The outcome of the regression is always 'mpg', whether selected or not.\"),\n    helpText(\"The regression analysis consists of calculating R² and determining the estimated values of the intercept and multipliers for the selected variables.\")\n  ),\n  \n  # Show a pairsplot of the selected predictors\n  mainPanel(\n    plotOutput(\"pairsPlot\"),\n    h3(textOutput(\"x\")),\n    textOutput(\"y\"),\n    textOutput(\"z\")\n  )\n))\n",
+    "created" : 1407831611658.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2034505545",
+    "id" : "732D9FB4",
+    "lastKnownWriteTime" : 1408539739,
+    "path" : "~/Coursera/DevDataProd/CourseProjectShiny/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

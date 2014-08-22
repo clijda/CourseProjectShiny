@@ -1,0 +1,16 @@
+{
+    "contents" : "\n# This is the server logic for a Shiny web application.\n# You can find out more about building applications with Shiny here:\n# \n# http://www.rstudio.com/shiny/\n#\n\nlibrary(shiny)\ndata(mtcars)\nshinyServer(function(input, output) {\n  \n  output$pairsPlot <- renderPlot({\n    \n    # generate bins based on input$bins from ui.R\n    #x    <- faithful[, 2] \n    #bins <- seq(min(x), max(x), length.out = input$bins + 1)\n    x <- \"\"\n    for (i in 1:length(input$Predictors)){\n      x <- paste(x,input$Predictors[i],sep=\"+\")\n    }\n    x <- as.formula(paste0(\"~\",x))\n    \n    # draw the pairs plot based on the input variables in x \n    pairs(x,mtcars, lower.panel=panel.smooth,col=\"red\",col.smooth=\"blue\",gap=1)\n    \n  })\n  \n  output$x <- renderText(\"Regression Analysis for selected predictors\")\n  \n  output$y <- renderText({\n    # construct the fit string with the predictor inputs\n    y <- \"\"\n    for (i in 1:length(input$Predictors)){\n      if (input$Predictors[i] != \"mpg\"){\n        y <- paste(y,input$Predictors[i],sep=\" + \")\n      } \n    }\n    y <- substr(y,3,nchar(y))\n    y <- paste0(\"mpg ~\",y)\n    f <- y\n    fit<-lm(y,data=mtcars)\n    \n    # construct the output string consisting of the R² for the model\n    y<-paste0(\"Regression model   \", f, \"   ->  R² = \",format(summary(fit)$r.squared,digits=3))\n    y\n  })\n  output$z<- renderText({\n    # construct the fit string with the predictor inputs\n    y <- \"\"\n    for (i in 1:length(input$Predictors)){\n      if (input$Predictors[i] != \"mpg\"){\n        y <- paste(y,input$Predictors[i],sep=\" + \")\n      }\n    }\n    y <- substr(y,3,nchar(y))\n    y <- paste0(\"mpg ~\",y)\n    fit<-lm(y,data=mtcars)\n    \n    # construct the output string consisting of the coefficients of the lm model\n    z<-paste(rownames(summary(fit)$coef), format(summary(fit)$coef[,1],digits=4),sep=\" \\r  =   \\r \")\n    z\n  })\n})\n",
+    "created" : 1407831612472.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1926002049",
+    "id" : "EE81CC27",
+    "lastKnownWriteTime" : 1408538284,
+    "path" : "~/Coursera/DevDataProd/CourseProjectShiny/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
